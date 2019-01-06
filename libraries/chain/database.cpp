@@ -2652,7 +2652,7 @@ namespace graphene { namespace chain {
                 });
 
                 /* VIZ Snapshot */
-                auto snapshot_json = fc::path(string("./snapshot.json"));
+                auto snapshot_json = fc::path(appbase::app().data_dir() / "snapshot.json");
                  if(fc::exists(snapshot_json))
                 {
                     share_type init_supply = int64_t( CHAIN_INIT_SUPPLY );
@@ -2930,7 +2930,6 @@ namespace graphene { namespace chain {
                 process_header_extensions(next_block);
 
                 const auto &witness = get_witness(next_block.witness);
-                const auto &hardfork_state = get_hardfork_property_object();
                 FC_ASSERT(witness.running_version >= hardfork_state.current_hardfork_version,
                         "Block produced by witness that is not running current hardfork",
                         ("witness", witness)("next_block.witness", next_block.witness)("hardfork_state", hardfork_state)
